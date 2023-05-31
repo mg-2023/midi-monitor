@@ -74,7 +74,7 @@ public class ControlPanel extends JPanel {
 					seq.setSequence(sequence);
 					
 					seq.start();
-					Thread.sleep(5);
+					Thread.sleep(10);
 					seq.stop();
 					seq.setSequence(temp);
 				} catch(Exception ex) {
