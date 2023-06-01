@@ -10,6 +10,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javax.sound.midi.*;
 
+import files.MidiFileStream;
+
 public class ControlPanel extends JPanel {
 	private static final long serialVersionUID = 1;
 	
@@ -68,9 +70,10 @@ public class ControlPanel extends JPanel {
 				seq.stop();
 				
 				try {
-					File reset = new File("src/files/reset.mid");
 					Sequence temp = seq.getSequence();
-					Sequence sequence = MidiSystem.getSequence(reset);
+					
+					MidiFileStream resetStream = new MidiFileStream("reset.mid");
+					Sequence sequence = MidiSystem.getSequence(resetStream.getInputStream());
 					seq.setSequence(sequence);
 					
 					seq.start();

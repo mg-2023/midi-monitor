@@ -5,10 +5,10 @@ import javax.swing.*;
 
 import javax.sound.midi.Transmitter;
 
-public class MidiVisualizer extends JFrame {
+public class MidiMonitor extends JFrame {
 	private static final long serialVersionUID = 1;
 	
-	public MidiVisualizer() {
+	public MidiMonitor() {
 		VirtualSequencer vSeq = new VirtualSequencer();
 		Transmitter trans = vSeq.getTransmitter();
 		
@@ -29,6 +29,6 @@ public class MidiVisualizer extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new MidiVisualizer();
+		new MidiMonitor();
 	}
 }

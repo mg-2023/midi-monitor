@@ -1,11 +1,11 @@
 package main;
 
-import java.io.File;
-
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Transmitter;
+
+import files.MidiFileStream;
 
 public class VirtualSequencer {
 	Sequencer sequencer;
@@ -13,8 +13,8 @@ public class VirtualSequencer {
 	
 	public VirtualSequencer() {
 		try {
-			File midiFile = new File("src/files/demo.mid");
-			Sequence sequence = MidiSystem.getSequence(midiFile);
+			MidiFileStream demoStream = new MidiFileStream("demo.mid");
+			Sequence sequence = MidiSystem.getSequence(demoStream.getInputStream());
 			
 			this.sequencer = MidiSystem.getSequencer();
 			this.sequencer.setSequence(sequence);
@@ -24,6 +24,7 @@ public class VirtualSequencer {
 			this.sequencer.open();
 		} catch(Exception e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 	
