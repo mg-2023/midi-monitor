@@ -23,7 +23,7 @@ public class MidiMonitor extends JFrame {
 		
 		c.add(new ControlPanel(vSeq.getSequencer(), rcv), BorderLayout.NORTH);
 		
-		this.setSize(640, 480);
+		this.setSize(800, 480);
 		this.setResizable(false);
 		this.setVisible(true);
 	}

@@ -106,6 +106,14 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		}
 	}
 	
+	void getPitchChange(byte[] msgByte, NoteVisualizer[] panels) {
+		int chn = (int)msgByte[0] & 0xF;
+		// process this method only in pitch bend
+		if((msgByte[0] & 0xF0) == 0xE0) {
+			panels[chn].setPitch(msgByte[1], msgByte[2]);
+		}
+	}
+	
 	public int getAllNotes() {
 		int res = 0;
 		for(NoteVisualizer notePanel : this.noteStatePanel) {
@@ -121,6 +129,7 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		this.countNotes(msgByte, this.noteCountText);
 		this.getStateChange(msgByte, this.channelStatePanel);
 		this.totalCounterPanel.updateText(this.totalNote);
+		this.getPitchChange(msgByte, this.noteStatePanel);
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ public final class NoteVisualizer extends JPanel {
 	
 	private int channel;
 	private int noteCount;
+	private int pitch;
 	private boolean[] noteState;
 	private JLabel noteText;
 
@@ -36,12 +37,15 @@ public final class NoteVisualizer extends JPanel {
 		
 		float w = (float)this.getWidth();
 		float h = (float)this.getHeight();
+		float h2 = h/2f;
+		int pOffset = this.pitch / 2048;
 		
-		g.setColor(new Color(Color.HSBtoRGB((float)channel/16f, 0.75f, 1f)));
+		g.setColor(new Color(Color.HSBtoRGB((float)channel/16f, 0.667f, 1f)));
 		for(int i=0; i<128; i++) {
 			int x = (int)(w*i / 128f);
 			if(this.noteState[i] == true) {
-				g.drawLine(x, 0, x, (int)h);
+				g.drawLine(x, 0, x+pOffset, (int)h2);
+				g.drawLine(x+pOffset, (int)h2, x, (int)h);
 			}
 		}
 	}
@@ -68,6 +72,12 @@ public final class NoteVisualizer extends JPanel {
 	
 	public void deactivateNote(int noteNum) {
 		this.noteState[noteNum] = false;
+		this.repaint();
+	}
+	
+	public void setPitch(byte b1, byte b2) {
+		int pitch = b1 + b2<<7;
+		this.pitch = pitch-8192;
 		this.repaint();
 	}
 }
