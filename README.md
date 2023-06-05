@@ -2,7 +2,7 @@
 Midi file player with simple visualizer
 
 ## Main file
-Open src/main/MidiVisualizer.java
+Open src/main/MidiMonitor.java
 
 ## What this program does
 Reads midi message from sequencer and visualizes it
