@@ -1,6 +1,9 @@
 # midi-monitor
 Midi file player with simple visualizer
 
+## JDK Version
+20
+
 ## Main file
 Open src/main/MidiMonitor.java
 
