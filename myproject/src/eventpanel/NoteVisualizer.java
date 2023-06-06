@@ -38,7 +38,7 @@ public final class NoteVisualizer extends JPanel {
 		float w = (float)this.getWidth();
 		float h = (float)this.getHeight();
 		float h2 = h/2f;
-		int pOffset = this.pitch / 2048;
+		int pOffset = this.pitch / 1536;
 		
 		g.setColor(new Color(Color.HSBtoRGB((float)channel/16f, 0.667f, 1f)));
 		for(int i=0; i<128; i++) {
@@ -76,7 +76,7 @@ public final class NoteVisualizer extends JPanel {
 	}
 	
 	public void setPitch(byte b1, byte b2) {
-		int pitch = b1 + b2<<7;
+		int pitch = b1 + (b2<<7);
 		this.pitch = pitch-8192;
 		this.repaint();
 	}
