@@ -1,8 +1,10 @@
 # midi-monitor
 Midi file player with simple visualizer
 
-## JDK Version
-20
+## Required JDK Version
+JDK (JavaSE) 20
+
+If the program doesn't open or throws exception when run through cmd, download the latest Java SE at [here](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html) and open again
 
 ## Main file
 Open src/main/MidiMonitor.java
