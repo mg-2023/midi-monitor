@@ -16,6 +16,7 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 	JLabel[] noteCountText;
 	JLabel[] channelStateText;
 	
+	ProgramVisualizer[] channelProgramPanel;
 	NoteVisualizer[] noteStatePanel;
 	StateVisualizer[] channelStatePanel;
 	
@@ -27,11 +28,12 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		this.totalNote = 0;
 		
 		this.setLayout(new GridLayout(17, 3));
-		this.channelStateText = new JLabel[16];
+		this.channelProgramPanel = new ProgramVisualizer[16];
 		this.noteStatePanel = new NoteVisualizer[16];
 		this.channelStatePanel = new StateVisualizer[16];
 		for(int i=0; i<16; i++) {
-			this.add(new JLabel("Channel " + (i+1), SwingConstants.CENTER));
+			this.channelProgramPanel[i] = new ProgramVisualizer(i+1);
+			this.add(this.channelProgramPanel[i]);
 			
 			this.noteStatePanel[i] = new NoteVisualizer(i);
 			this.add(this.noteStatePanel[i]);
@@ -60,6 +62,32 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		}
 	}
 	
+	// program visualizer related methods
+	void getProgramChange(byte[] msgByte, ProgramVisualizer[] panels) {
+		int chn = (int)msgByte[0] & 0xF;
+		int prog = panels[chn].getProgram();
+		int bankMSB = panels[chn].getBankMSB();
+		int bankLSB = panels[chn].getBankLSB();
+		
+		// process this method only in program change or bank select
+		if((msgByte[0] & 0xF0) == 0xC0) {
+			panels[chn].changeProgram(msgByte[1], bankMSB, bankLSB);
+		}
+		
+		else if((msgByte[0] & 0xF0) == 0xB0) {
+			switch(msgByte[1]) {
+			case 0x00:
+				panels[chn].changeProgram(prog, msgByte[2], bankLSB);
+				break;
+			
+			case 0x20:
+				panels[chn].changeProgram(prog, bankMSB, msgByte[2]);
+				break;
+			}
+		}
+	}
+	
+	// note visualizer related methods
 	void countNotes(byte[] msgByte, JLabel[] labels) {
 		int chn = (int)msgByte[0] & 0xF;
 		if((msgByte[0] & 0xF0) == 0x90 && msgByte[2] > 0x00) {
@@ -86,6 +114,15 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		this.totalNote = 0;
 	}
 	
+	void getPitchChange(byte[] msgByte, NoteVisualizer[] panels) {
+		int chn = (int)msgByte[0] & 0xF;
+		// process this method only in pitch bend
+		if((msgByte[0] & 0xF0) == 0xE0) {
+			panels[chn].setPitch(msgByte[1], msgByte[2]);
+		}
+	}
+	
+	// state visualizer related methods
 	void getStateChange(byte[] msgByte, StateVisualizer[] panels) {
 		int chn = (int)msgByte[0] & 0xF;
 		// process this method only in control change
@@ -106,14 +143,6 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		}
 	}
 	
-	void getPitchChange(byte[] msgByte, NoteVisualizer[] panels) {
-		int chn = (int)msgByte[0] & 0xF;
-		// process this method only in pitch bend
-		if((msgByte[0] & 0xF0) == 0xE0) {
-			panels[chn].setPitch(msgByte[1], msgByte[2]);
-		}
-	}
-	
 	public int getAllNotes() {
 		int res = 0;
 		for(NoteVisualizer notePanel : this.noteStatePanel) {
@@ -126,10 +155,13 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 	@Override
 	public void send(MidiMessage msg, long timeStamp) {
 		byte[] msgByte = msg.getMessage();
+		this.getProgramChange(msgByte, channelProgramPanel);
+		
 		this.countNotes(msgByte, this.noteCountText);
+		this.getPitchChange(msgByte, this.noteStatePanel);
+		
 		this.getStateChange(msgByte, this.channelStatePanel);
 		this.totalCounterPanel.updateText(this.totalNote);
-		this.getPitchChange(msgByte, this.noteStatePanel);
 	}
 	
 	@Override

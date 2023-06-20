@@ -16,6 +16,7 @@ On windows it plays file with MS GS Wavetable synth (with java's default synthes
 
 * 1st column
     * Channel name, from 1 to 16
+    * Program number, bank MSB and LSB (`[Prog, BankMSB, BankLSB]` format)
     * Time signature (bottom row)
 * 2nd column
     * Note count of individual channel

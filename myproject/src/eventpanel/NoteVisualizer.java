@@ -38,7 +38,13 @@ public final class NoteVisualizer extends JPanel {
 		float w = (float)this.getWidth();
 		float h = (float)this.getHeight();
 		float h2 = h/2f;
-		int pOffset = this.pitch / 1536;
+		int pOffset = this.pitch / 2048;
+		
+		g.setColor(new Color(64, 64, 64));
+		for(int i=12; i<=120; i+=12) {
+			int x = (int)(w*i / 128f);
+			g.drawLine(x, 0, x, (int)h);
+		}
 		
 		g.setColor(new Color(Color.HSBtoRGB((float)channel/16f, 0.667f, 1f)));
 		for(int i=0; i<128; i++) {
