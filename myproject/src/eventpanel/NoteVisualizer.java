@@ -41,7 +41,7 @@ public final class NoteVisualizer extends JPanel {
 		int pOffset = this.pitch / 2048;
 		
 		g.setColor(new Color(64, 64, 64));
-		for(int i=12; i<=120; i+=12) {
+		for(int i=0; i<=120; i+=12) {
 			int x = (int)(w*i / 128f);
 			g.drawLine(x, 0, x, (int)h);
 		}

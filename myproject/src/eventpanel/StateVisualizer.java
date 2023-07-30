@@ -17,6 +17,9 @@ public final class StateVisualizer extends JPanel {
 		this.exp = 127;
 		this.pan = 64;
 		
+		this.setBackground(Color.BLACK);
+		this.setOpaque(true);
+		
 		this.setLayout(new GridLayout(1, 3));
 		JLabel vol = new JLabel("  Vol");
 		JLabel exp = new JLabel("  Exp");
@@ -25,6 +28,10 @@ public final class StateVisualizer extends JPanel {
 		this.add(vol);
 		this.add(exp);
 		this.add(pan);
+		
+		vol.setForeground(Color.WHITE);
+		exp.setForeground(Color.WHITE);
+		pan.setForeground(Color.WHITE);
 	}
 	
 	@Override
@@ -45,16 +52,16 @@ public final class StateVisualizer extends JPanel {
 		super.paintComponent(g);
 		
 		// individual bar
-		g.setColor(Color.RED);
+		g.setColor(new Color(192, 0, 0));
 		g.fillRect((int)volStart, 0, (int)volOffset, (int)h);
 		
-		g.setColor(Color.GREEN);
+		g.setColor(new Color(0, 192, 0));
 		g.fillRect((int)expStart, 0, (int)expOffset, (int)h);
 		
 		g.setColor(Color.LIGHT_GRAY);
 		g.drawLine((int)(panStart+panCenter), 0, (int)(panStart+panCenter), (int)h);
 		
-		g.setColor(Color.BLUE);
+		g.setColor(new Color(0, 255, 255));
 		g.drawLine((int)(panStart+panOffset), 0, (int)(panStart+panOffset), (int)h);
 		
 		// outline

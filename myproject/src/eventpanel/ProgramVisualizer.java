@@ -1,5 +1,6 @@
 package eventpanel;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -17,6 +18,9 @@ public final class ProgramVisualizer extends JPanel {
 	public ProgramVisualizer(int chn) {
 		this.setLayout(new GridLayout(1, 2));
 		
+		this.setBackground(Color.BLACK);
+		this.setOpaque(true);
+		
 		this.chn = chn;
 		this.channelNum = new JLabel("Channel " + this.chn, SwingConstants.CENTER);
 		this.add(this.channelNum);
@@ -27,6 +31,9 @@ public final class ProgramVisualizer extends JPanel {
 		
 		this.channelProg = new JLabel(String.format("[%d, %d, %d]", this.prog, this.bankMSB, this.bankLSB), SwingConstants.CENTER);
 		this.add(this.channelProg);
+		
+		this.channelNum.setForeground(Color.WHITE);
+		this.channelProg.setForeground(Color.WHITE);
 	}
 	
 	public int getProgram() {

@@ -4,6 +4,7 @@ import java.io.File;
 
 import java.awt.event.*;
 import java.awt.FlowLayout;
+import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,6 +17,9 @@ public class ControlPanel extends JPanel {
 	private static final long serialVersionUID = 1;
 	
 	public ControlPanel(Sequencer seq, EventVisualizer rcv) {
+		this.setBackground(Color.BLACK);
+		this.setOpaque(true);
+		
 		seq.addMetaEventListener(rcv);
 		
 		this.setLayout(new FlowLayout());

@@ -28,6 +28,8 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		this.totalNote = 0;
 		
 		this.setLayout(new GridLayout(17, 3));
+		this.setBackground(Color.BLACK);
+		this.setOpaque(true);
 		this.channelProgramPanel = new ProgramVisualizer[16];
 		this.noteStatePanel = new NoteVisualizer[16];
 		this.channelStatePanel = new StateVisualizer[16];
@@ -183,9 +185,14 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		JLabel sig;
 		
 		public TimeSigDisplayer() {
+			this.setBackground(Color.BLACK);
+			this.setOpaque(true);
+			
 			this.setLayout(new BorderLayout());
 			this.sig = new JLabel("Time Signature: - / -", SwingConstants.CENTER);
 			this.add(this.sig);
+			
+			this.sig.setForeground(Color.WHITE);
 		}
 		
 		public void updateText(byte[] msgByte) {
@@ -202,9 +209,14 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		JLabel noteCount;
 		
 		public TotalCounter() {
+			this.setBackground(Color.BLACK);
+			this.setOpaque(true);
+			
 			this.setLayout(new BorderLayout());
 			this.noteCount = new JLabel("Total Note: 0", SwingConstants.CENTER);
 			this.add(this.noteCount);
+			
+			this.noteCount.setForeground(Color.WHITE);
 		}
 		
 		public void updateText(int note) {
@@ -219,9 +231,14 @@ public class EventVisualizer extends JPanel implements Receiver, MetaEventListen
 		JLabel BPM;
 		
 		public TempoDisplayer() {
+			this.setBackground(Color.BLACK);
+			this.setOpaque(true);
+			
 			this.setLayout(new BorderLayout());
 			this.BPM = new JLabel("BPM: ---.--", SwingConstants.CENTER);
 			this.add(this.BPM);
+			
+			this.BPM.setForeground(Color.WHITE);
 		}
 		
 		// invoked by method 'meta'
